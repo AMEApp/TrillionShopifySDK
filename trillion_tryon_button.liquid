@@ -1,0 +1,91 @@
+<style>
+  .product__card-ar-popup {
+    position: fixed;
+    background: #fff;
+    z-index: 101;
+    width: 100vw;
+    height: 100vh;
+    visibility: hidden;
+    opacity: 0;
+    transition: .5s;
+  }
+
+  #ar__container-close {
+    position: absolute;
+    top: 17px;
+    right: 17px;
+    cursor: pointer;
+    transition: .5s;
+  }
+  #ar {
+    margin-top: 20px;
+    display: block;
+    padding: 0;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+  .product__card-form-button-ar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #222D33;
+    width: 199px;
+    height: 50px;
+    color: #FFF;
+  }
+  .product__card-form-button-ar:hover {
+    opacity: .7;
+    transition: .3s ease-in-out;
+  }
+  .product__card-form-button-ar svg {
+    margin-right: 10px;
+  }
+  .product__card-form-button-ar svg path{
+    fill: #FFF;
+  }
+  .product__card-ar-popup-visible {
+    visibility: visible;
+    opacity: 1;
+    transition: .5s;
+  }
+  @media screen and (min-width: 700px) {
+    .product__card-ar-popup {
+      width: 60%;
+      height: 80%;
+      max-width: 1024px;
+      left: 50%;
+      top: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      visibility: hidden;
+      opacity: 0;
+      transition: .5s;
+    }
+
+    .product__card-ar-popup-visible {
+      visibility: visible;
+      opacity: 1;
+      transition: .5s;
+    }
+  }
+</style>
+
+
+<button class="product__card-form-default-button" id="ar" name="ar" type="button">
+  <div class="product__card-form-button-ar">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9.93467 0L1.29688 4.99852V14.9956L9.93467 19.9941L18.5725 14.9956V4.99852L9.93467 0ZM9.84697 0.26308C9.27697 6.35776 6.47078 11.1809 1.47226 14.7763C3.26997 8.28702 5.15538 4.99852 9.84697 0.26308ZM1.55995 14.9079C7.12848 12.3648 12.7409 12.3648 18.3094 14.9079C11.8639 16.6179 8.04926 16.6179 1.55995 14.9079ZM10.0224 0.26308C14.714 5.04236 16.6432 8.28702 18.3971 14.7763C13.3986 11.2247 10.6362 6.35776 10.0224 0.26308Z" fill="black"/>
+    </svg>
+    <div class="product__card-form-button-text">
+      Try on in AR mode
+    </div>
+  </div>
+</button>
+
+<div class="product__card-ar-popup" id="arPopup">
+  <div id="ar__container-close">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M3.29289 3.29289C3.68342 2.90237 4.31658 2.90237 4.70711 3.29289L12 10.5858L19.2929 3.29289C19.6834 2.90237 20.3166 2.90237 20.7071 3.29289C21.0976 3.68342 21.0976 4.31658 20.7071 4.70711L13.4142 12L20.7071 19.2929C21.0976 19.6834 21.0976 20.3166 20.7071 20.7071C20.3166 21.0976 19.6834 21.0976 19.2929 20.7071L12 13.4142L4.70711 20.7071C4.31658 21.0976 3.68342 21.0976 3.29289 20.7071C2.90237 20.3166 2.90237 19.6834 3.29289 19.2929L10.5858 12L3.29289 4.70711C2.90237 4.31658 2.90237 3.68342 3.29289 3.29289Z" fill="#7B7B7B"/>
+    </svg>
+  </div>
+</div>
