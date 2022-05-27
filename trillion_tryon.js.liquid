@@ -6,6 +6,7 @@ const arPopupClose = document.querySelector('#ar__container-close');
 const demoIframe = document.createElement("iframe");
 const url = document.location.pathname
 const jewelryId = url.substr(url.lastIndexOf('/') + 1);
+{% comment %}const jewelryId = 'ring_demo_store'{% endcomment %}
 
 function prepareIFrame() {
   demoIframe.setAttribute("src", `https://master.widget.develop.trillion.jewelry/?id=${jewelryId}`);
@@ -44,7 +45,7 @@ productOverlay.addEventListener('click', (event) => {
 // Jewelry Exist
 function jewelryExists(handle) {
   const data = {
-    "data": { id: handle, rootCollectionName: "AppData2" }
+    "data": { id: handle, rootCollectionName: "AppData4" }
   };
   fetch(`https://us-central1-trillionprod.cloudfunctions.net/jewelryExists`, {
     method: "POST",
@@ -60,12 +61,10 @@ function jewelryExists(handle) {
       return response.json();
     })
     .then(data => {
-      console.log(data)
+      if (data.result) {
+        arButton.style.display = "block";
+      }
     })
-}
-
-if (jewelryExists) {
-  arButton.style.display = "block";
 }
 
 jewelryExists(jewelryId)
