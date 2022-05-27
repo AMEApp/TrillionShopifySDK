@@ -6,7 +6,6 @@ const arPopupClose = document.querySelector('#ar__container-close');
 const demoIframe = document.createElement("iframe");
 const url = document.location.pathname
 const jewelryId = url.substr(url.lastIndexOf('/') + 1);
-{% comment %}const jewelryId = 'ring_demo_store'{% endcomment %}
 
 function prepareIFrame() {
   demoIframe.setAttribute("src", `https://master.widget.develop.trillion.jewelry/?id=${jewelryId}`);
