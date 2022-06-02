@@ -6,20 +6,26 @@ const arPopupClose = document.querySelector('#ar__container-close');
 const demoIframe = document.createElement("iframe");
 const url = document.location.pathname
 const jewelryId = url.substr(url.lastIndexOf('/') + 1);
+const body = document.querySelector('body')
 
 function prepareIFrame() {
   demoIframe.setAttribute("src", `https://master.widget.develop.trillion.jewelry/?id=${jewelryId}`);
-  demoIframe.style.width = "100%";
-  demoIframe.style.height = "100%";
-  demoIframe.style.border = "none";
-  demoIframe.setAttribute('allow','camera');
-  arPopup.appendChild(demoIframe);
+  demoIframe.style.width = "100%"
+  demoIframe.style.height = "100%"
+  demoIframe.style.border = "none"
+  demoIframe.style.display = "block"
+  demoIframe.style.position = "fixed"
+  demoIframe.style.top = "0"
+  demoIframe.style.left = "0"
+  demoIframe.setAttribute('allow','camera')
+  arPopup.appendChild(demoIframe)
 }
 
 arButton.addEventListener('click', (event) => {
   productOverlay.classList.add('product__overlay-visible')
   arPopup.classList.add('product__card-ar-popup-visible')
   prepareIFrame()
+  body.style.overflowY = 'hidden'
 });
 
 
@@ -30,6 +36,7 @@ arPopupClose.addEventListener('click', (event) => {
   }
   productOverlay.classList.remove('product__overlay-visible')
   arPopup.classList.remove('product__card-ar-popup-visible')
+  body.style.overflowY = 'unset'
 });
 
 productOverlay.addEventListener('click', (event) => {
@@ -39,6 +46,7 @@ productOverlay.addEventListener('click', (event) => {
   }
   productOverlay.classList.remove('product__overlay-visible')
   arPopup.classList.remove('product__card-ar-popup-visible')
+  body.style.overflowY = 'unset'
 });
 
 // Jewelry Exist
