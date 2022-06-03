@@ -21,33 +21,39 @@ function prepareIFrame() {
   arPopup.appendChild(demoIframe)
 }
 
-arButton.addEventListener('click', (event) => {
-  productOverlay.classList.add('product__overlay-visible')
-  arPopup.classList.add('product__card-ar-popup-visible')
-  prepareIFrame()
-  body.style.overflowY = 'hidden'
-});
+if (arButton) {
+  arButton.addEventListener('click', (event) => {
+    productOverlay.classList.add('product__overlay-visible')
+    arPopup.classList.add('product__card-ar-popup-visible')
+    prepareIFrame()
+    body.style.overflowY = 'hidden'
+  });
+}
 
 
-arPopupClose.addEventListener('click', (event) => {
-  let iframes = document.querySelectorAll('iframe');
-  for (let i = 0; i < iframes.length; i++) {
-    iframes[i].parentNode.removeChild(iframes[i]);
-  }
-  productOverlay.classList.remove('product__overlay-visible')
-  arPopup.classList.remove('product__card-ar-popup-visible')
-  body.style.overflowY = 'unset'
-});
+if (arPopupClose) {
+  arPopupClose.addEventListener('click', (event) => {
+    let iframes = document.querySelectorAll('iframe');
+    for (let i = 0; i < iframes.length; i++) {
+      iframes[i].parentNode.removeChild(iframes[i]);
+    }
+    productOverlay.classList.remove('product__overlay-visible')
+    arPopup.classList.remove('product__card-ar-popup-visible')
+    body.style.overflowY = 'unset'
+  });
+}
 
-productOverlay.addEventListener('click', (event) => {
-  let iframes = document.querySelectorAll('iframe');
-  for (let i = 0; i < iframes.length; i++) {
-    iframes[i].parentNode.removeChild(iframes[i]);
-  }
-  productOverlay.classList.remove('product__overlay-visible')
-  arPopup.classList.remove('product__card-ar-popup-visible')
-  body.style.overflowY = 'unset'
-});
+if (productOverlay) {
+  productOverlay.addEventListener('click', (event) => {
+    let iframes = document.querySelectorAll('iframe');
+    for (let i = 0; i < iframes.length; i++) {
+      iframes[i].parentNode.removeChild(iframes[i]);
+    }
+    productOverlay.classList.remove('product__overlay-visible')
+    arPopup.classList.remove('product__card-ar-popup-visible')
+    body.style.overflowY = 'unset'
+  })
+}
 
 // Jewelry Exist
 function jewelryExists(handle) {
