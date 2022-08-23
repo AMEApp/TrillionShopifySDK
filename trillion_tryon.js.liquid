@@ -58,17 +58,9 @@ if (productOverlay) {
 
 // Jewelry Exist
 function jewelryExists(handle) {
-    const data = {
-        "data": { id: handle, rootCollectionName: "AppData4" }
-    };
-    fetch(`https://us-central1-trillionprod.cloudfunctions.net/jewelryExists`, {
-        method: "POST",
+    fetch(`https://us-central1-trillionprod.cloudfunctions.net/jewelryExists=${handle}`, {
+        method: "GET",
         mode: "cors",
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "Cache-Control": "no-cache"
-        },
         body: JSON.stringify(data),
     })
         .then(response => {
