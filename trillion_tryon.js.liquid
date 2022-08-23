@@ -58,7 +58,7 @@ if (productOverlay) {
 
 // Jewelry Exist
 function jewelryExists(handle) {
-    fetch(`https://us-central1-trillionprod.cloudfunctions.net/jewelryExists=${handle}`, {
+    fetch(`https://us-central1-trillionprod.cloudfunctions.net/isJewelryExists?sku=${handle}`, {
         method: "GET",
         mode: "cors",
         body: JSON.stringify(data),
