@@ -58,9 +58,17 @@ if (productOverlay) {
 
 // Jewelry Exist
 function jewelryExists(handle) {
-    fetch(`https://us-central1-trillionprod.cloudfunctions.net/isJewelryExists?sku=${handle}`, {
-        method: "GET",
+    const data = {
+        "data": { id: handle }
+    };
+    fetch(`https://us-central1-trillionprod.cloudfunctions.net/jewelryExists`, {
+        method: "POST",
         mode: "cors",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Cache-Control": "no-cache"
+        },
         body: JSON.stringify(data),
     })
         .then(response => {
@@ -72,6 +80,7 @@ function jewelryExists(handle) {
             }
         })
 }
+
 jewelryExists(jewelryId)
 
 selector.onchange = () => {
