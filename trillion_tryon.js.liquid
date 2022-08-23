@@ -8,7 +8,6 @@ const url = document.location.pathname
 let jewelryId = '{{ product.selected_or_first_available_variant.sku }}'
 const body = document.querySelector('body')
 const selector = document.querySelector('#{{product_form_installment_id}}')
-console.log(jewelryId)
 
 function prepareIFrame() {
     demoIframe.setAttribute("src", `https://master.widget.develop.trillion.jewelry/?id=${jewelryId}`);
