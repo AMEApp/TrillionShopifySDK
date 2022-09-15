@@ -1,32 +1,28 @@
+import {TrillionWidgetApp} from "https://unpkg.com/trillion-widget@0.2.10/build-lib/trillion-widget.js"
+
 // AR Button
 const productOverlay = document.querySelector('.product__overlay');
 const arButton = document.querySelector('#ar')
 const arPopup = document.querySelector('#arPopup');
+const widgetContainer = document.querySelector('#widgetContainer')
 const arPopupClose = document.querySelector('#ar__container-close');
-const demoIframe = document.createElement("iframe");
-const url = document.location.pathname
 let jewelryId = '{{ product.selected_or_first_available_variant.sku }}'
 const body = document.querySelector('body')
 const selector = document.querySelector('#{{product_form_installment_id}}')
+// get the AR Widget instance
+const trillionWidget = new TrillionWidgetApp()
 
-function prepareIFrame() {
-    demoIframe.setAttribute("src", `https://master.widget.develop.trillion.jewelry/?id=${jewelryId}`);
-    demoIframe.style.width = "100%"
-    demoIframe.style.height = "100%"
-    demoIframe.style.border = "none"
-    demoIframe.style.display = "block"
-    demoIframe.style.position = "fixed"
-    demoIframe.style.top = "0"
-    demoIframe.style.left = "0"
-    demoIframe.setAttribute('allow','camera')
-    arPopup.appendChild(demoIframe)
+function widgetInit() {
+    trillionWidget.init(widgetContainer)
+    trillionWidget.setJewelryID(jewelryId)
+    trillionWidget.refresh()
 }
 
 if (arButton) {
     arButton.addEventListener('click', (event) => {
         productOverlay.classList.add('product__overlay-visible')
         arPopup.classList.add('product__card-ar-popup-visible')
-        prepareIFrame()
+        widgetInit()
         body.style.overflowY = 'hidden'
     });
 }
@@ -34,10 +30,7 @@ if (arButton) {
 
 if (arPopupClose) {
     arPopupClose.addEventListener('click', (event) => {
-        let iframes = document.querySelectorAll('iframe');
-        for (let i = 0; i < iframes.length; i++) {
-            iframes[i].parentNode.removeChild(iframes[i]);
-        }
+        trillionWidget.destroy()
         productOverlay.classList.remove('product__overlay-visible')
         arPopup.classList.remove('product__card-ar-popup-visible')
         body.style.overflowY = 'unset'
@@ -46,10 +39,7 @@ if (arPopupClose) {
 
 if (productOverlay) {
     productOverlay.addEventListener('click', (event) => {
-        let iframes = document.querySelectorAll('iframe');
-        for (let i = 0; i < iframes.length; i++) {
-            iframes[i].parentNode.removeChild(iframes[i]);
-        }
+        trillionWidget.destroy()
         productOverlay.classList.remove('product__overlay-visible')
         arPopup.classList.remove('product__card-ar-popup-visible')
         body.style.overflowY = 'unset'
