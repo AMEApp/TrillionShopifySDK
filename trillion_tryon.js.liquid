@@ -1,16 +1,27 @@
 import {TrillionWidgetApp} from "https://unpkg.com/trillion-widget@0.2.22/build-lib/trillion-widget.js"
 
 // AR Button
+const disableLaptopTyrOn = false
 const productOverlay = document.querySelector('.product__overlay');
 const arButton = document.querySelector('#ar')
 const arPopup = document.querySelector('#arPopup');
 const widgetContainer = document.querySelector('#widgetContainer')
+const arPopupQRClose = document.querySelector('#store__popup_close');
+const arPopupQRDesktop = document.querySelector('#store__popup_container')
 const arPopupClose = document.querySelector('#ar__container-close');
 let jewelryId = '{{ product.selected_or_first_available_variant.sku }}'
 const body = document.querySelector('body')
 const selector = document.querySelector('#{{product_form_installment_id}}')
+let width = window.innerWidth
+
 // get the AR Widget instance
 const trillionWidget = new TrillionWidgetApp()
+
+function resizeListener() {
+    width = window.innerWidth
+}
+
+window.addEventListener("resize", resizeListener);
 
 function widgetInit() {
     trillionWidget.init(widgetContainer)
@@ -20,9 +31,13 @@ function widgetInit() {
 
 if (arButton) {
     arButton.addEventListener('click', (event) => {
+        if (disableLaptopTyrOn && width > 768) {
+            arPopupQRDesktop.style.display = 'block'
+        } else {
+            arPopup.classList.add('product__card-ar-popup-visible')
+            widgetInit()
+        }
         productOverlay.classList.add('product__overlay-visible')
-        arPopup.classList.add('product__card-ar-popup-visible')
-        widgetInit()
         body.style.overflowY = 'hidden'
     });
 }
@@ -31,6 +46,15 @@ if (arButton) {
 if (arPopupClose) {
     arPopupClose.addEventListener('click', (event) => {
         trillionWidget.destroy()
+        productOverlay.classList.remove('product__overlay-visible')
+        arPopup.classList.remove('product__card-ar-popup-visible')
+        body.style.overflowY = 'unset'
+    });
+}
+
+if(arPopupQRClose) {
+    arPopupQRClose.addEventListener('click', (event) => {
+        ArPopupQRDesktop.style.display = 'none'
         productOverlay.classList.remove('product__overlay-visible')
         arPopup.classList.remove('product__card-ar-popup-visible')
         body.style.overflowY = 'unset'
