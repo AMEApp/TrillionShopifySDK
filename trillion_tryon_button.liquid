@@ -86,6 +86,68 @@
       transition: .5s;
     }
   }
+  
+  /*  POP UP ONLY DESKTOP CONTAINER  */
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Source+Sans+Pro&display=swap');
+
+        #store__popup_container {
+            display: none;
+            background: #FFF;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 692px;
+            z-index: 100000000;
+        }
+        .store__popup_content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 56px;
+            padding: 63px 54px 61px 72px;
+        }
+        .store__popup_content_qr_title {
+            font-family: 'Playfair Display', sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 17px;
+            color: #000000;
+            margin: 20px 0 32px;
+        }
+        .store__popup_content_qr_text {
+            font-family: 'Source Sans Pro', sans-serif;
+            max-width: 252px;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 17px;
+            color: #000000;
+            margin: 0 0 20px;
+        }
+        .store__text_small {
+            max-width: 218px;
+        }
+        .store__popup_content_qr_qr {
+            position: relative;
+            width: 160px;
+            overflow: hidden;
+        }
+        .store__qr_image {
+            position: absolute;
+            width: 48px;
+            height: 48px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #FFF;
+        }
+        #store__popup_close {
+            position: absolute;
+            right: 30px;
+            top: 30px;
+            cursor: pointer;
+        }
 </style>
 
 
@@ -109,3 +171,54 @@
   </div>
   <div id="widgetContainer"></div>
 </div>
+
+<div id="store__popup_container">
+    <div id="store__popup_close">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0.353553" y1="0.646447" x2="15.3536" y2="15.6464" stroke="black"/>
+            <line x1="15.3536" y1="0.353553" x2="0.353554" y2="15.3536" stroke="black"/>
+        </svg>
+    </div>
+    <div class="store__popup_content">
+        <div class="store__popup_image">
+            <picture>
+                <source srcset="https://raw.githubusercontent.com/TrillionHQ/TrillionShopifySDK/master/mobileTryon2x.png 2x">
+                <img src="https://raw.githubusercontent.com/TrillionHQ/TrillionShopifySDK/master/mobileTryon.png" alt="mobile tryon">
+            </picture>
+        </div>
+        <div class="store__popup_content__qr">
+            <div class="store__popup_content_qr_title">
+                Try on in AR mode
+            </div>
+            <div class="store__popup_content_qr_text">
+                You can try the piece online in AR mode. Also, don't forget to make a photo or video and share your experience with friends!
+            </div>
+            <div class="store__popup_content_qr_text store__text_small">
+                Scan the QR-code to try the piece on in the mobile:
+            </div>
+            <div class="store__popup_content_qr_qr">
+                <div class="store__qr_image">
+                    <img src="https://raw.githubusercontent.com/TrillionHQ/TrillionShopifySDK/master/logo.svg" alt="Logo trillion">
+                </div>
+                <canvas id="canvas"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+        let path = window.location.href
+        QRCode.toCanvas(document.getElementById('canvas'),
+            `${path}`, {
+            toSJISFunc: QRCode.toSJIS,
+                margin:0,
+                width: 160,
+                color: {
+                    dark:"#222D33",
+                    light:"#FFFFFF"
+                }
+            }, function (error) {
+                if (error) console.error(error)
+                console.log('success!')
+            })
+</script>
