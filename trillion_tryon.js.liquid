@@ -16,6 +16,7 @@ let width = window.innerWidth
 
 // get the AR Widget instance
 const trillionWidget = new TrillionWidgetApp()
+trillionWidget.init(widgetContainer)
 
 function resizeListener() {
     width = window.innerWidth
@@ -24,7 +25,6 @@ function resizeListener() {
 window.addEventListener("resize", resizeListener);
 
 function widgetInit() {
-    trillionWidget.init(widgetContainer)
     trillionWidget.setJewelryID(jewelryId)
     trillionWidget.refresh()
 }
