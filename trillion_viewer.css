@@ -1,0 +1,11 @@
+#trillion-viewer {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+#trillion-viewer canvas {
+  position: relative;
+  width: 100% !important;
+  height: 100% !important;
+}
