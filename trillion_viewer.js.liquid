@@ -18,24 +18,17 @@ const jewelryExists = (function() {
   
   
   const query = function(jewelryId) {
-    const data = {
-        "data": { id: jewelryId }
-    };
-    fetch(`https://us-central1-trillionprod.cloudfunctions.net/jewelryExists`, {
-        method: "POST",
-        mode: "cors",
+    fetch(`https://dashboard.trillion.jewelry:8001/trillionwebapp/publication-status/${jewelryId}`, {
+        method: "GET",
         headers: {
             "Accept": "application/json",
-            "Content-Type": "application/json",
-            "Cache-Control": "no-cache"
-        },
-        body: JSON.stringify(data),
+        }
     })
         .then(response => {
             return response.json();
         })
         .then(data => {
-            if (data.result) {
+            if (data.isPublishedWebSDK) {
                 trillionViewerInit(jewelryId)
             }
         })
