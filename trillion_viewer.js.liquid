@@ -17,7 +17,7 @@ const jewelryExists = (function() {
   const jewelryId = url.substr(url.lastIndexOf('/') + 1)
   
   
-  const query = function(jewelryId) {
+  const query = function() {
     fetch(`https://dashboard.trillion.jewelry:8001/trillionwebapp/publication-status/${jewelryId}`, {
         method: "GET",
         headers: {
