@@ -1,4 +1,4 @@
-import {TrillionWidgetApp} from "https://unpkg.com/trillion-widget@0.2.22/build-lib/trillion-widget.js"
+import {TrillionWidgetApp} from "https://unpkg.com/trillion-widget@0.16.5/build-lib/trillion-widget.js"
 
 // AR Button
 const disableLaptopTyrOn = false
@@ -11,12 +11,12 @@ const arPopupQRDesktop = document.querySelector('#store__popup_container')
 const arPopupClose = document.querySelector('#ar__container-close');
 let jewelryId = '{{ product.selected_or_first_available_variant.sku }}'
 const body = document.querySelector('body')
-const selector = document.querySelector('#{{product_form_installment_id}}')
+// const selector = document.querySelector('#{{product_form_installment_id}}')
 let width = window.innerWidth
+
 
 // get the AR Widget instance
 const trillionWidget = new TrillionWidgetApp()
-trillionWidget.init(widgetContainer)
 
 function resizeListener() {
     width = window.innerWidth
@@ -25,8 +25,16 @@ function resizeListener() {
 window.addEventListener("resize", resizeListener);
 
 function widgetInit() {
+    trillionWidget.init(widgetContainer)
     trillionWidget.setJewelryID(jewelryId)
     trillionWidget.refresh()
+}
+
+if (widgetParam === "show") {
+  arPopup.classList.add('product__card-ar-popup-visible')
+  widgetInit()
+  productOverlay.classList.add('product__overlay-visible')
+  body.style.overflowY = 'hidden'
 }
 
 if (arButton) {
@@ -67,47 +75,37 @@ if (productOverlay) {
         productOverlay.classList.remove('product__overlay-visible')
         arPopup.classList.remove('product__card-ar-popup-visible')
         body.style.overflowY = 'unset'
+        arPopupQRDesktop.style.display = 'none'
     })
 }
 
 // Jewelry Exist
-function jewelryExists(handle) {
-    const data = {
-        "data": { id: handle }
-    };
-    fetch(`https://us-central1-trillionprod.cloudfunctions.net/jewelryExists`, {
-        method: "POST",
-        mode: "cors",
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "Cache-Control": "no-cache"
-        },
-        body: JSON.stringify(data),
+export async function jewelryExists(jewelryId) {
+    const response = await fetch(`https://dashboard.trillion.jewelry/api/trillionwebapp/publication-status/${jewelryId}`, {
+        method: "GET",
     })
-        .then(response => {
-            return response.json();
-        })
-        .then(data => {
-            if (data.result) {
-                arButton.style.display = "block";
-            }
-        })
+      
+    const data = await response.json(); 
+    if (data.isPublishedWebSDK) {
+      arButton.style.display = "block"
+    }
+  
+    return data.isPublishedWebSDK;
 }
 
 jewelryExists(jewelryId)
 
-selector.onchange = () => {
-    const queryString = window.location.search
-    const params = new URLSearchParams(queryString)
-    const getVariant = parseInt(params.get("variant"))
-
-
-    {% for variant in product.variants %}
-    if ({{ variant.id }} === getVariant) {
-        jewelryId = '{{ variant.sku }}'
-        console.log(jewelryId)
-    }
-    {% endfor %}
-    jewelryExists(jewelryId)
-}
+// selector.onchange = () => {
+//    const queryString = window.location.search
+//    const params = new URLSearchParams(queryString)
+//    const getVariant = parseInt(params.get("variant"))
+//
+//
+//    {% for variant in product.variants %}
+//    if ({{ variant.id }} === getVariant) {
+//        jewelryId = '{{ variant.sku }}'
+//        console.log(jewelryId)
+//    }
+//    {% endfor %}
+//    jewelryExists(jewelryId)
+// }
