@@ -1,14 +1,15 @@
 import {TrillionWidgetApp} from "https://unpkg.com/trillion-widget@0.19.2/build-lib/trillion-widget.js"
 
 // AR Button
+const apiKey = "PASTE_YOUR_API_KEY_HERE"
 const disableLaptopTyrOn = false
-const productOverlay = document.querySelector('.product__overlay');
+const productOverlay = document.querySelector('.product__overlay')
 const arButton = document.querySelector('#ar')
-const arPopup = document.querySelector('#arPopup');
+const arPopup = document.querySelector('#arPopup')
 const widgetContainer = document.querySelector('#widgetContainer')
-const arPopupQRClose = document.querySelector('#store__popup_close');
+const arPopupQRClose = document.querySelector('#store__popup_close')
 const arPopupQRDesktop = document.querySelector('#store__popup_container')
-const arPopupClose = document.querySelector('#ar__container-close');
+const arPopupClose = document.querySelector('#ar__container-close')
 let jewelryId = '{{ product.selected_or_first_available_variant.sku }}'
 const body = document.querySelector('body')
 // const selector = document.querySelector('#{{product_form_installment_id}}')
@@ -26,6 +27,7 @@ window.addEventListener("resize", resizeListener);
 
 function widgetInit() {
     trillionWidget.init(widgetContainer)
+    trillionWidget.setServiceActivationKey(apiKey)
     trillionWidget.setJewelryID(jewelryId)
     trillionWidget.refresh()
 }
