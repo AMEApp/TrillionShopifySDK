@@ -1,0 +1,66 @@
+<style>
+  .trillion-ar-button {
+    position: relative;
+    margin-top: 20px;
+    display: block;
+    padding: 0;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .trillion-ar-button__inner-layout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #222d33;
+    width: 100%;
+    height: 50px;
+    color: #fff;
+    transition: 0.3s ease-in-out;
+  }
+
+  .trillion-ar-button__inner-layout:hover {
+    opacity: 0.7;
+  }
+
+  .trillion-ar-button__inner-layout__icon {
+    margin-right: 10px;
+  }
+</style>
+
+<script>
+  function goToIntegrationTryon() {
+    const widgetIntegrationFile = "trillion-widget.html";
+
+    // make sure this is correct path for trillion-widget.html
+    const widgetPath = `${window.location.origin}/${widgetIntegrationFile}`;
+
+    const url = new URL(widgetPath);
+    url.window.open(url, "_blank").focus();
+  }
+</script>
+
+<button
+  class="trillion-ar-button"
+  type="button"
+  onclick="goToIntegrationTryon()"
+>
+  <div class="trillion-ar-button__inner-layout">
+    <svg
+      class="trillion-ar-button__inner-layout__icon"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M9.93467 0L1.29688 4.99852V14.9956L9.93467 19.9941L18.5725 14.9956V4.99852L9.93467 0ZM9.84697 0.26308C9.27697 6.35776 6.47078 11.1809 1.47226 14.7763C3.26997 8.28702 5.15538 4.99852 9.84697 0.26308ZM1.55995 14.9079C7.12848 12.3648 12.7409 12.3648 18.3094 14.9079C11.8639 16.6179 8.04926 16.6179 1.55995 14.9079ZM10.0224 0.26308C14.714 5.04236 16.6432 8.28702 18.3971 14.7763C13.3986 11.2247 10.6362 6.35776 10.0224 0.26308Z"
+        fill="white"
+      />
+    </svg>
+    <span>Try on in AR mode</span>
+  </div>
+</button>
