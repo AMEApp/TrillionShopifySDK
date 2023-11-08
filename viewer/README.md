@@ -88,3 +88,7 @@ You need to copy the snippet file `trillion_viewer.liquid` to the snippets folde
 ```
 
 ![Connect snippet](./_img/11.png)
+
+## Result
+
+As a result, you should see an additional slide in the product card. Click on it. If this product is present in the Trillion database and it has a 3D model, a 3D viewer should appear instead of a picture.
