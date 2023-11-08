@@ -32,7 +32,14 @@
 
 <script type="module">
   const trillionTryonPage = "trillion-tryon";
-  const jewelryId = "{{ product.selected_or_first_available_variant.sku }}";
+
+  const url = document.location.pathname;
+  // get the sku from the url, it should be the same as in the Trillion dashboard
+  const jewelryId = url.slice(url.lastIndexOf('/') + 1);
+
+  // if you use sku field in product, you can use this
+  // const jewelryId = "{{ product.selected_or_first_available_variant.sku }}";
+
   const arButton = document.querySelector(".trillion-ar-button");
 
   if (await checkJewelryExists()) {
@@ -69,7 +76,6 @@
 <button
   class="trillion-ar-button"
   type="button"
-  onclick="goToIntegrationTryon()"
 >
   <div class="trillion-ar-button__inner-layout">
     <svg

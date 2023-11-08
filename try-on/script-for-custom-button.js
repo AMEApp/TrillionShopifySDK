@@ -1,6 +1,13 @@
 const trillionTryonPage = 'trillion-tryon';
-const jewelryId = '{{ product.selected_or_first_available_variant.sku }}';
-const arButton = document.querySelector(".trillion-ar-button");
+
+const url = document.location.pathname;
+// get the sku from the url, it should be the same as in the Trillion dashboard
+const jewelryId = url.slice(url.lastIndexOf('/') + 1);
+
+// if you use sku field in product, you can use this
+// const jewelryId = "{{ product.selected_or_first_available_variant.sku }}";
+
+const arButton = document.querySelector("YOUR-BUTTON");
 
 if (await checkJewelryExists()) {
   arButton.style.display = 'block';
