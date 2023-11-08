@@ -1,34 +1,34 @@
-# How to embed a Trillion 3D Viewer to a Shopify site?
+# How to embed the Trillion 3D Viewer on a Shopify site?
 
 ## Prerequisites
 
-- You have an account in the Trillion Dashboard
-- You have a purchased package which includes 3D Viewer (3D Viewer or Try-on + 3D Viewer)
-- You have at least one product that have "Done" status and published
+- You have an account on the Trillion Dashboard
+- You have purchased a package that includes the 3D Viewer (3D Viewer or Try-on + 3D Viewer)
+- You have at least one product that has "Done" status and has been published.
 
 ## To embed the Viewer on your site, you need to do the following
 
-1. Add an image to your product as a thumbnail for viewer
+1. Add an image of your product as a thumbnail for the viewer
 2. Add a code snippet
 3. Set your Activation key
-4. Edit trillion_viewer.liquid regarding to your theme
-5. Connect a snippet with your theme
+4. Edit trillion_viewer.liquid regarding your theme
+5. Connect a snippet to your theme
 
 Let's take a closer look at each step below:
 
-## 1. Add an image to your product as a thumbnail for viewer
+## 1. Add an image of your product as a thumbnail for the viewer
 
-- Go to “Products” -> Choose a product where 3d model exist
+- Go to “Products” -> Choose a product where 3D model exists
 
 ![Products](./_img/1.png)
 
-- Add an image which will be a thumbnail for your 3D viewer slide
+- Add an image that will be a thumbnail for your 3D viewer slide
 
 ## 2. Add a code snippet
 
 You need to copy the snippet file `trillion_viewer.liquid` to the snippets folder
 
-- Go to the shopify admin panel, select Online Store → Themes → Click three dots → Edit code
+- Go to the Shopify admin panel, select Online Store → Themes → Click three dots → Edit code
 
 ![Admin panel](./_img/2.png)
 
@@ -36,11 +36,11 @@ You need to copy the snippet file `trillion_viewer.liquid` to the snippets folde
 
 ![Add snippet](./_img/3.png)
 
-- In the popup window you enter `trillion_viewer`
+- In the popup window, you enter `trillion_viewer`
 
 ![Add snippet popup](./_img/4.png)
 
-- Download [trillion_viewer.liquid](./trillion_viewer.liquid "Go to file") file and copy its contents
+- Download the [trillion_viewer.liquid](./trillion_viewer.liquid "Go to file") file and copy its contents
 
 - Paste it into the snippet file you just created in the Shopify code editor (page.trillion_viewer.liquid)
 
@@ -55,7 +55,7 @@ You need to copy the snippet file `trillion_viewer.liquid` to the snippets folde
 
 ![Integration add](./_img/6.png)
 
-- Click "Copy key" button in the Activation key section
+- Click the "Copy key" button in the Activation key section
 
 ![Integration copy key](./_img/7.png)
 
@@ -65,21 +65,21 @@ You need to copy the snippet file `trillion_viewer.liquid` to the snippets folde
 
 - Press "Save"
 
-## 4. Edit trillion_viewer.liquid regarding to your theme
+## 4. Edit trillion_viewer.liquid regarding your theme
 
-- Go to the web page of a product where you add a thumbnail in step 1.a -> Open developer panel (CTRL + F12 on Windows or F12 on Mac) -> And find a class of a component which is a wrapper for a gallery slides. In my theme this class name is `product__media-list`
+- Go to the web page of a product where you added a thumbnail in step 1.a -> Open developer panel (CTRL + F12 on Windows or F12 on Mac) -> And find the class of a component, which is a wrapper for a gallery slides. In my theme, this class name is `product__media-list`
 
 ![Find wrapper class](./_img/9.png)
 
-- Go Edit Code -> Assets -> trillion_viewer.js.liquid and change this part (line 46) to your class in the way to choose the last element of wrapped components
+- Go to Edit Code -> Assets -> trillion_viewer.js.liquid and change this part (line 46) to your class in the way to choose the last element of wrapped components
 
 ![Edit wrapper class](./_img/10.png)
 
 - Press "Save"
 
-## 5. Connect a snippet with your theme
+## 5. Connect a snippet to your theme
 
-- In the Shopify Code editor go to Layout -> theme.liquid and add this line right before right before closing `</body>` tag
+- In the Shopify Code editor, go to Layout -> theme.liquid and add this line right before right `</body>` tag
 
 ```liquid
   {%- if request.page_type == 'product' -%}
