@@ -13,7 +13,8 @@
     - Set your Activation key
     - Predefined Trillion Button - file [trillion_tryon_button.liquid](./trillion_tryon_button.liquid "Go to file") ***Can be skipped if a custom button is used.***
 2. Add an AR button to the site
-3. Create a page for the Trillion Try-On widget
+3. Choose how to get the SKU
+4. Create a page for the Trillion Try-On widget
 
 Let's take a closer look at each step below:
 
@@ -128,7 +129,7 @@ For example, you can create a new asset and upload file [script-for-custom-butto
 
 ![Add asset](./_img/17.png)
 
-Then, you need to add a CSS selector for your own button to the code (at line 10)
+Then, you need to add a CSS selector for your own button to the code (at line 12)
 
 ```javascript
 const arButton = document.querySelector("#my-ar-button");
@@ -136,7 +137,7 @@ const arButton = document.querySelector("#my-ar-button");
 
 So, your button may look like this.
 
-```javascript
+```html
 <button id="my-ar-button">Try on in AR</button> 
 ```
 
@@ -148,7 +149,25 @@ Next, right after `<head>`, you need to add a line of code and save
 <script src="{{ 'script-for-custom-button.js' | asset_url }}" defer type="module"></script>
 ```
 
-## 3. Create a page for the Trillion Try-on widget
+## 3. Choose how to get the SKU
+
+You need to choose a method of getting the SKU, it depends on what you specify in the SKU field in the product card in the Trillion Dashboard.
+
+1. Get SKU from Product SKU field. If you use SKU field in your Shopify product.
+`{{ product.selected_or_first_available_variant.sku }}` (default)
+2. Get SKU from url `url.slice(url.lastIndexOf('/') + 1)`. If you don't use SKU field, you can use product name from url.
+
+If you prefer method 2, you need to do some changes in the `trillion_tryon_button.liquid` file
+
+- Comment line 40
+- Uncomment line 43
+
+Or in the `script-for-custom-button.js` for custom button.
+
+- Comment line 7
+- Uncomment line 10
+
+## 4. Create a page for the Trillion Try-on widget
 
 - Go back to the shopify admin panel, select Online Store → Pages → Click "Add page"
 

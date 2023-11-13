@@ -1,11 +1,13 @@
 const trillionTryonPage = 'trillion-tryon';
 
 const url = document.location.pathname;
-// get the sku from the url, it should be the same as in the Trillion dashboard
-const jewelryId = url.slice(url.lastIndexOf('/') + 1);
 
-// if you use sku field in product, you can use this
-// const jewelryId = "{{ product.selected_or_first_available_variant.sku }}";
+// Choose how to get the SKU
+// Method 1. use sku field in the shopify product
+const jewelryId = "{{ product.selected_or_first_available_variant.sku }}";
+
+// Method 2. get the sku from the url
+// const jewelryId = url.slice(url.lastIndexOf('/') + 1);
 
 const arButton = document.querySelector("YOUR-BUTTON");
 

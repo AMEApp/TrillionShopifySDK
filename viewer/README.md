@@ -12,7 +12,8 @@
 2. Add a code snippet
 3. Set your Activation key
 4. Edit trillion_viewer.liquid regarding your theme
-5. Connect a snippet to your theme
+5. Choose how to get the SKU
+6. Connect a snippet to your theme
 
 Let's take a closer look at each step below:
 
@@ -67,7 +68,9 @@ You need to copy the snippet file `trillion_viewer.liquid` to the snippets folde
 
 ## 4. Edit trillion_viewer.liquid regarding your theme
 
-- Go to the web page of a product where you added a thumbnail in step 1.a -> Open developer panel (CTRL + F12 on Windows or F12 on Mac) -> And find the class of a component, which is a wrapper for a gallery slides. In my theme, this class name is `product__media-list`
+If your theme use flickity-slider, you can skip this step and go to part 5.
+
+- Go to the web page of a product where you added a thumbnail in step 1.a -> Open developer panel (CTRL + F12 on Windows or F12 on Mac) -> And find the class of a component, which is a wrapper for a gallery slides. In my theme, this class name is `product__media-list` (you will most likely have the same class if your site does not use a custom slider, so you can leave it unchanged and skip part 4)
 
 ![Find wrapper class](./_img/9.png)
 
@@ -77,9 +80,22 @@ You need to copy the snippet file `trillion_viewer.liquid` to the snippets folde
 
 - Press "Save"
 
-## 5. Connect a snippet to your theme
+## 5. Choose how to get the SKU
 
-- In the Shopify Code editor, go to Layout -> theme.liquid and add this line right before right `</body>` tag
+You need to choose a method of getting the SKU, it depends on what you specify in the SKU field in the product card in the Trillion Dashboard.
+
+1. Get SKU from Product SKU field. If you use SKU field in your Shopify product.
+`{{ product.selected_or_first_available_variant.sku }}` (default)
+2. Get SKU from url `url.slice(url.lastIndexOf('/') + 1)`. If you don't use SKU field, you can use product name from url.
+
+If you prefer method 2, you need to do some changes in `trillion_viewer.liquid`.
+
+- Comment line 26
+- Uncomment line 29
+
+## 6. Connect a snippet to your theme
+
+- In the Shopify Code editor, go to Layout -> theme.liquid and add this line right before closing `</body>` tag
 
 ```liquid
   {%- if request.page_type == 'product' -%}
