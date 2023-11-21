@@ -13,18 +13,20 @@
 </style>
 
 <script type="module">
-  import { TrillionViewerApp } from "https://unpkg.com/trillion-viewer@0.19.2/build-lib/trillion-viewer.js";
+  import { TrillionViewerApp } from "https://unpkg.com/trillion-viewer@0.19.5/build-lib/trillion-viewer.js";
 
   // \/ PASTE YOUR KEY HERE \/
   const activationKey = "PASTE_YOUR_ACTIVATION_KEY_HERE";
   // /\ PASTE YOUR KEY HERE /\
   
   const url = document.location.pathname;
-  // get the sku from the url, it should be the same as in the Trillion dashboard
-  const jewelryId = url.slice(url.lastIndexOf('/') + 1);
 
-  // if you use sku field in product, you can use this
-  // const jewelryId = "{{ product.selected_or_first_available_variant.sku }}";
+  // Choose how to get the SKU
+  // Method 1. use sku field in the shopify product
+  const jewelryId = "{{ product.selected_or_first_available_variant.sku }}";
+
+  // Method 2. get the sku from the url
+  // const jewelryId = url.slice(url.lastIndexOf('/') + 1);
   
   await checkJewelryExists();
   trillionViewerInit();
@@ -45,6 +47,8 @@
   function trillionViewerInit() {
     const galleryList = document.querySelector('.flickity-slider .product-main-slide:last-of-type');
     galleryList.innerHTML = '<div id="trillion-viewer"></div>';
+    galleryList.style.width = '100%';
+    galleryList.style.height = '100%';
   
     const viewerElem = document.getElementById('trillion-viewer');
     const trillionViewer = new TrillionViewerApp();
