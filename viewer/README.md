@@ -8,7 +8,7 @@
 
 ## To embed the Viewer on your site, you need to do the following
 
-1. Add an image of your product as a thumbnail for the viewer
+1. Add an image of your product as a preview for the viewer
 2. Add a code snippet
 3. Set your Activation key
 4. Edit trillion_viewer.liquid regarding your theme
@@ -17,13 +17,23 @@
 
 Let's take a closer look at each step below:
 
-## 1. Add an image of your product as a thumbnail for the viewer
+## 1. Add an image of your product as a preview for the viewer
 
 - Go to “Products” -> Choose a product where 3D model exists
 
-![Products](./_img/1.png)
+![Products](./_img/1_1.png)
 
-- Add an image that will be a thumbnail for your 3D viewer slide
+- Prepare an image that will be a preview for your 3D viewer slide
+
+- Name it as `trillion_viewer_3d_preview.<extension>`
+
+[You can use our example](../assets/trillion_viewer_3d_preview.png)
+
+- Add the image in the Media window  
+
+![Add an image](./_img/1_2.png)
+
+- You can place the image in any order
 
 ## 2. Add a code snippet
 
@@ -60,25 +70,29 @@ You need to copy the snippet file `trillion_viewer.liquid` to the snippets folde
 
 ![Integration copy key](./_img/7.png)
 
-- Set your Activation key at line 19
+- Set your Activation key at line 5
 
-![Paste template content](./_img/8.png)
+![Paste template content](./_img/set_activation_key.png)
 
 - Press "Save"
 
-## 4. Edit trillion_viewer.liquid regarding your theme
+## 4. Tell the script how to find slider image
 
-If your theme use flickity-slider, you can skip this step and go to part 5.
+- Our script will try to find the preview image that you added to your product and replace it by 3D Viewer. To do this, you need to tell our script a valid CSS selector with which it can find a place to embed the viewer.
 
-- Go to the web page of a product where you added a thumbnail in step 1.a -> Open developer panel (CTRL + F12 on Windows or F12 on Mac) -> And find the class of a component, which is a wrapper for a gallery slides. In my theme, this class name is `product__media-list` (you will most likely have the same class if your site does not use a custom slider, so you can leave it unchanged and skip part 4)
+  - Go to the web page of a product where you added a preview in step 1  
+  - Open the developer panel (CTRL + F12 on Windows or F12 on Mac)  
+  - Find the class of a component, which best describes the container for every slide. In my theme, this CSS selector will be `'.main-carousel .flickity-slider .carousel-cell'`
 
-![Find wrapper class](./_img/9.png)
+![Find wrapper class](./_img/find_slider_image.png)
 
-- Go to Edit Code -> Assets -> trillion_viewer.js.liquid and change this part (line 46) to your class in the way to choose the last element of wrapped components
+- Go back to `trillion_viewer.liquid` and change this part (line 46) to your class in the way to choose the last element of wrapped components
 
 ![Edit wrapper class](./_img/10.png)
 
 - Press "Save"
+
+These are general tips, but each store is unique. Feel free to experiment. If you have any problems, please contact us.
 
 ## 5. Choose how to get the SKU
 
@@ -90,8 +104,8 @@ You need to choose a method of getting the SKU, it depends on what you specify i
 
 If you prefer method 2, you need to do some changes in `trillion_viewer.liquid`.
 
-- Comment line 26
-- Uncomment line 29
+- Comment line 12
+- Uncomment line 15
 
 ## 6. Connect a snippet to your theme
 

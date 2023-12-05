@@ -114,7 +114,6 @@ The code looks like this
 
 ```liquid
 {% render 'trillion_tryon_button' %}
-
 ```
 
 ![Edit product form 2](./_img/16.png)
@@ -185,7 +184,7 @@ If you are trying to do Try-On integration in an unpublished theme, you may enco
 Unfortunately, Shopify does not allow you to create pages using templates of unpublished themes.  
 However, you can add a Try-on page template to the current theme by following section 1.a.  
 Then create a page with a `trillion-tryon` template.
-After these steps, the Tryon page in the preview for the unpublished topic should work.
+After these steps, the Tryon page in the preview for the unpublished theme should work.
 
 ## Result
 
