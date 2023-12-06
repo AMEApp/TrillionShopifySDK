@@ -1,7 +1,11 @@
 <div id="trillion-widget"></div>
 <style>
-  body > *:not(#MainContent) {
+  body > *:not(#MainContent):not(#PageContainer) {
     display: none;
+  }
+
+  body {
+    overflow: hidden;
   }
 
   #trillion-widget {
@@ -13,13 +17,9 @@
     height: 100%;
     width: 100%;
   }
-
-  #trillion-widget div:empty {
-    display: inherit;
-  }
 </style>
 <script type="module">
-  import { TrillionWidgetApp } from "https://unpkg.com/trillion-widget@0.19.5/build-lib/trillion-widget.js";
+  import { TrillionWidgetApp } from "https://unpkg.com/trillion-widget@0.22.5/build-lib/trillion-widget.js";
 
   // \/ PASTE YOUR KEY HERE \/
   const activationKey = "PASTE_YOUR_ACTIVATION_KEY_HERE";

@@ -1,19 +1,5 @@
-<style>
-  #trillion-viewer {
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-  #trillion-viewer canvas {
-    position: relative;
-    width: 100% !important;
-    height: 100% !important;
-  }
-</style>
-
 <script type="module">
-  import { TrillionViewerApp } from "https://unpkg.com/trillion-viewer@0.19.5/build-lib/trillion-viewer.js";
+  import { TrillionViewerApp } from "https://unpkg.com/trillion-viewer@0.22.5/build-lib/trillion-viewer.js";
 
   // \/ PASTE YOUR KEY HERE \/
   const activationKey = "PASTE_YOUR_ACTIVATION_KEY_HERE";
@@ -29,8 +15,38 @@
   // const jewelryId = url.slice(url.lastIndexOf('/') + 1);
   
   await checkJewelryExists();
-  trillionViewerInit();
+  await trillionViewerInit();
   
+  async function trillionViewerInit() {
+    const slideSelector = '.main-carousel .flickity-slider .carousel-cell';
+    const imgSlideSelector = slideSelector + ' img';
+    const previewName = 'trillion_viewer_3d_preview';
+    
+    // wait for slider loading complete
+    await waitForElm(slideSelector);
+    
+    // find slide with trillion preview
+    const imgs = document.querySelectorAll(imgSlideSelector);
+    const trlnPreviewIndex = [...imgs].findIndex((img) => img.src.includes(previewName));
+    const slideNode = document.querySelectorAll(slideSelector)[trlnPreviewIndex];
+    if (slideNode === undefined) {
+      throw new Error('[Trillion 3D Viewer] Slide not found');
+    }
+    slideNode.style.width = '100%';
+    slideNode.style.height = '100%';
+    
+    // remove content
+    slideNode.innerHTML = '';
+
+    // run TrillionViewerApp into slideNode
+    const trillionViewer = new TrillionViewerApp();
+  
+    trillionViewer.init(slideNode);
+    trillionViewer.setServiceActivationKey(activationKey);
+    trillionViewer.setJewelryID(jewelryId);
+    trillionViewer.refresh();
+  }
+
   async function checkJewelryExists() {
     const response = await fetch(`https://dashboard.trillion.jewelry/api/trillionwebapp/publication-status/${jewelryId}`, {
       method: "GET",
@@ -43,19 +59,26 @@
       throw new Error('[Trillion 3D Viewer] Product is not published');
     }
   }
-  
-  function trillionViewerInit() {
-    const galleryList = document.querySelector('.flickity-slider .product-main-slide:last-of-type');
-    galleryList.innerHTML = '<div id="trillion-viewer"></div>';
-    galleryList.style.width = '100%';
-    galleryList.style.height = '100%';
-  
-    const viewerElem = document.getElementById('trillion-viewer');
-    const trillionViewer = new TrillionViewerApp();
-  
-    trillionViewer.init(viewerElem);
-    trillionViewer.setServiceActivationKey(activationKey);
-    trillionViewer.setJewelryID(jewelryId);
-    trillionViewer.refresh();
+
+  function waitForElm(selector) {
+    return new Promise(resolve => {
+        const elem = document.querySelector(selector);
+        if (elem) {
+            return resolve(elem);
+        }
+
+        const observer = new MutationObserver(mutations => {
+            const elem = document.querySelector(selector);
+            if (elem) {
+                observer.disconnect();
+                resolve(elem);
+            }
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    });
   }
 </script>
